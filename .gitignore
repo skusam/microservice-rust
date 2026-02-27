@@ -1,0 +1,29 @@
+# --- Rust / Cargo ---
+/target/
+/debug/
+/release/
+
+# Für Libraries ignorieren, für Binaries behalten:
+Cargo.lock
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.iml
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs / Temp ---
+*.log
+*.pid
+*.bak
+*.tmp
+
+# --- Docker (optional) ---
+docker-data/
+*.tar
