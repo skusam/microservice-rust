@@ -75,3 +75,39 @@ impl CustomerService {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn create_customer_creates_and_stores_customer() {
+        let service = CustomerService::new();
+
+        let req = CreateCustomerRequest {
+            name: "Alice".into(),
+            email: "alice@example.com".into(),
+        };
+
+        let customer = service.create_customer(req);
+
+        assert!(!customer.id.is_empty());
+        assert_eq!(customer.name, "Alice");
+        assert_eq!(customer.email, "alice@example.com");
+
+        // sicherstellen, dass der Kunde im HashMap gespeichert wurde
+        let stored = service.get_customer(customer.id.clone()).unwrap();
+        assert_eq!(stored.id, customer.id);
+    }
+
+    #[test]
+    fn get_customer_returns_error_if_not_found() {
+        let service = CustomerService::new();
+
+        let result = service.get_customer("nonexistent-id".into());
+
+        assert!(result.is_err());
+        let err = result.err().unwrap();
+        assert_eq!(err.id, "nonexistent-id");
+    }
+}
