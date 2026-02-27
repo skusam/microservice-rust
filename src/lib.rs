@@ -7,12 +7,14 @@ use axum::{
 };
 use customer::*;
 
+pub use customer::Customer;
+
 pub fn app() -> Router {
     let service = CustomerService::new();
 
     Router::new()
         .route("/customers", post(create_customer))
-        .route("/customers/:id", get(get_customer))
+        .route("/customers/{id}", get(get_customer))
         .with_state(service)
 }
 
